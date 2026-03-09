@@ -296,19 +296,40 @@
     }
     
   
-    /* Стили для боковой навигации */
-    .sidebar-nav { display: flex; flex-direction: column; gap: 8px; }
+    
+    
+  
+    
+  
+    /* Премиальная боковая панель и навигация */
+    #smart-sidebar {
+      position: sticky;
+      top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      transition: top 0.15s ease-out; /* Плавное скольжение при смене направления скролла */
+      will-change: top;
+    }
+    .sidebar-nav { display: flex; flex-direction: column; gap: 4px; }
     .sidebar-link {
-      display: block; padding: 10px 16px; border-radius: 10px;
-      background: #f8fafc; color: #475569; font-weight: 600; font-size: 0.95rem;
-      text-decoration: none; transition: var(--transition); border: 1px solid var(--border);
+      display: block; padding: 10px 14px; border-radius: 8px;
+      color: var(--muted); font-weight: 500; font-size: 0.95rem;
+      text-decoration: none; transition: all 0.2s;
+      border-left: 3px solid transparent; background: transparent;
+    }
+    .sidebar-link.active {
+      color: var(--accent); font-weight: 600; background: #f8fafc;
+      border-left-color: var(--accent);
     }
     @media (hover: hover) {
       .sidebar-link:hover {
-        background: #eff6ff; color: var(--accent);
-        border-color: #bfdbfe; transform: translateX(6px); box-shadow: var(--shadow-sm);
+        background: #f1f5f9; color: var(--accent);
+        border-left-color: #93c5fd; transform: translateX(4px);
       }
     }
+    .aside-card { background: var(--card); padding: 24px; border-radius: var(--radius); box-shadow: var(--shadow-sm); transition: var(--transition); }
+    @media (hover: hover) { .aside-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); } }
     
   </style>
 </head>
@@ -497,6 +518,11 @@
 <li class="doc-item">
 <span class="doc-text">Победители конкурса педагогов и младших школьников «Мир, в котором мы живём!» (2022)</span>
 <div class="doc-actions" data-file="assets/achievements/mir-v-kotorom-my-zhivem.pdf" data-type="pdf"></div>
+</li>
+<li class="doc-item">
+<span class="doc-text">Участник акции «Марш юных экологов» (2025)</span>
+<div class="doc-actions" data-file="assets/achievements/marsh-yunyh-ekologov.pdf" data-type="pdf"></div>
+</li>
 <li class="doc-item">
 <span class="doc-text">Победители викторины «Безопасность в зимний период» (2025-2026)</span>
 <div class="doc-actions" data-file="assets/achievements/bezopasnost.jpg" data-type="image"></div>
@@ -505,7 +531,7 @@
 <h4>Региональный уровень</h4>
 <ul class="doc-list" style="margin-bottom: 20px;">
 <li class="doc-item">
-<span class="doc-text">Активное участие в акции «Марш юных экологов» (2025)</span>
+<span class="doc-text">Сертификат за активное участие в акции «Марш юных экологов» (2025)</span>
 <div class="doc-actions" data-file="assets/achievements/marsh-yunyh-ekologov.pdf" data-type="pdf"></div>
 </li>
 </ul>
@@ -547,7 +573,7 @@
 <li><strong>nsportal.ru</strong> — методические материалы, обмен опытом.</li>
 <li><strong>doshkolnik.ru</strong> — материалы для занятий, игры.</li>
 </ul>
-<h4>Методические разработки используемые мной в работе</h4>
+<h4>Методические разработки используемые в работе</h4>
 <ul class="doc-list">
 <li class="doc-item">
 <span class="doc-text">Экологические игры</span>
@@ -622,55 +648,61 @@
 <p>Стремление к постоянному профессиональному росту, обмену опытом с коллегами и внедрению современных практик в условиях небольшого поселка. Готовность к участию в региональных проектах и конкурсах.</p>
 </section>
 </main>
-<aside>
-<div class="aside-card">
-<h3 style="margin-top:0; font-size:1.1rem; margin-bottom: 16px;">Навигация</h3>
-<div class="sidebar-nav">
-<a class="sidebar-link" href="#about">Обо мне</a>
-<a class="sidebar-link" href="#group">О группе</a>
-<a class="sidebar-link" href="#projects">Проекты</a>
-<a class="sidebar-link" href="#results">Результаты</a>
-<a class="sidebar-link" href="#achievements">Достижения</a>
-<a class="sidebar-link" href="#gallery_2">Фотогалерея</a>
-<a class="sidebar-link" href="#certs">Документы</a>
-</div>
-</div>
-<div class="aside-card">
-<h3 style="margin-top:0">Контакты</h3>
-<div style="font-weight: 600; font-size: 1.05rem;">Балакина Анна Юрьевна</div>
-<div style="margin-top: 12px; font-size: 0.95rem; display: flex; flex-direction: column; gap: 8px;">
-<span>📞 <a href="tel:+79536001339">+7 (953) 600-13-39</a></span>
-<span>✉️ <a href="mailto:balackina.anna2014@yandex.ru">balackina.anna2014@yandex.ru</a></span>
-<span>📍 ул. Стадионная, 1Б</span>
-</div>
-</div>
-<div class="aside-card">
-<h3 style="margin-top:0; font-size:1.1rem">Ключевые компетенции</h3>
-<div style="font-size:0.9rem; color:var(--muted); line-height:1.5; margin-bottom: 12px;">
-            Планирование • Проектная деятельность • Взаимодействие с семьями • Диагностика
+<aside id="smart-sidebar">
+        <!-- Навигация -->
+        <div class="aside-card" style="padding: 20px 16px;">
+          <h3 style="margin-top:0; font-size:1.1rem; margin-bottom: 12px; padding-left: 14px;">Навигация</h3>
+          <div class="sidebar-nav">
+            <a href="#about" class="sidebar-link">Обо мне</a>
+            <a href="#group" class="sidebar-link">О группе</a>
+            <a href="#projects" class="sidebar-link">Проекты</a>
+            <a href="#results" class="sidebar-link">Результаты</a>
+            <a href="#achievements" class="sidebar-link">Достижения</a>
+            <a href="#gallery_2" class="sidebar-link">Фотогалерея</a>
+            <a href="#certs" class="sidebar-link">Документы</a>
           </div>
-<div style="font-size:0.9rem; color:var(--muted); margin-bottom: 6px;">Педагогический опыт</div>
-<div class="bar" style="height: 12px;"><div class="bar-fill" style="width:90%; background: #60a5fa;"></div></div>
-</div>
+        </div>
 
-<div class="aside-card" style="padding: 20px;">
-<h3 style="margin-top:0; font-size:1.1rem; margin-bottom: 16px;">Быстрая инфографика</h3>
-<div class="mini-stats-grid">
-<div class="mini-stat">
-<span>Проекты</span>
-<b>7</b>
-</div>
-<div class="mini-stat">
-<span>Стаж</span>
-<b>12 лет</b>
-</div>
-<div class="mini-stat full">
-<span>Группа</span>
-<b>2-7 лет</b>
-</div>
-</div>
-</div>
-</aside>
+        <!-- Контакты -->
+        <div class="aside-card">
+          <h3 style="margin-top:0; font-size:1.1rem; margin-bottom: 12px;">Контакты</h3>
+          <div style="font-weight: 600; font-size: 0.95rem;">Балакина Анна Юрьевна</div>
+          <div style="margin-top: 12px; font-size: 0.9rem; display: flex; flex-direction: column; gap: 8px;">
+            <span>📞 <a href="tel:+79536001339">+7 (953) 600-13-39</a></span>
+            <span>✉️ <a href="mailto:balackina.anna2014@yandex.ru">balackina.anna2014@yandex.ru</a></span>
+            <span style="color: var(--muted);">📍 ул. Стадионная, 1Б</span>
+          </div>
+        </div>
+
+        <!-- Компетенции -->
+        <div class="aside-card">
+          <h3 style="margin-top:0; font-size:1.1rem; margin-bottom: 12px;">Компетенции</h3>
+          <div style="font-size:0.9rem; color:var(--muted); line-height:1.5; margin-bottom: 16px;">
+            Планирование • Проекты • Семьи • Диагностика
+          </div>
+          <div style="font-size:0.85rem; color:var(--muted); margin-bottom: 6px;">Педагогический опыт</div>
+          <div class="bar" style="height: 10px;"><div class="bar-fill" style="width:90%; background: #60a5fa;"></div></div>
+        </div>
+
+        <!-- Инфографика -->
+        <div class="aside-card">
+          <h3 style="margin-top:0; font-size:1.1rem; margin-bottom: 16px;">Инфографика</h3>
+          <div class="mini-stats-grid">
+            <div class="mini-stat">
+              <span>Проекты</span>
+              <b>7</b>
+            </div>
+            <div class="mini-stat">
+              <span>Стаж</span>
+              <b>12 лет</b>
+            </div>
+            <div class="mini-stat full">
+              <span>Группа</span>
+              <b>2-7 лет</b>
+            </div>
+          </div>
+        </div>
+      </aside>
 </div>
 </div>
 
@@ -947,20 +979,90 @@
     }
     
   
-    /* Стили для боковой навигации */
-    .sidebar-nav { display: flex; flex-direction: column; gap: 8px; }
+    
+    
+  
+    
+  
+    /* Премиальная боковая панель и навигация */
+    #smart-sidebar {
+      position: sticky;
+      top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      transition: top 0.15s ease-out; /* Плавное скольжение при смене направления скролла */
+      will-change: top;
+    }
+    .sidebar-nav { display: flex; flex-direction: column; gap: 4px; }
     .sidebar-link {
-      display: block; padding: 10px 16px; border-radius: 10px;
-      background: #f8fafc; color: #475569; font-weight: 600; font-size: 0.95rem;
-      text-decoration: none; transition: var(--transition); border: 1px solid var(--border);
+      display: block; padding: 10px 14px; border-radius: 8px;
+      color: var(--muted); font-weight: 500; font-size: 0.95rem;
+      text-decoration: none; transition: all 0.2s;
+      border-left: 3px solid transparent; background: transparent;
+    }
+    .sidebar-link.active {
+      color: var(--accent); font-weight: 600; background: #f8fafc;
+      border-left-color: var(--accent);
     }
     @media (hover: hover) {
       .sidebar-link:hover {
-        background: #eff6ff; color: var(--accent);
-        border-color: #bfdbfe; transform: translateX(6px); box-shadow: var(--shadow-sm);
+        background: #f1f5f9; color: var(--accent);
+        border-left-color: #93c5fd; transform: translateX(4px);
       }
     }
+    .aside-card { background: var(--card); padding: 24px; border-radius: var(--radius); box-shadow: var(--shadow-sm); transition: var(--transition); }
+    @media (hover: hover) { .aside-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); } }
     
   </style>
+
+    <script>
+    // --- Умный скролл боковой панели ---
+    document.addEventListener("DOMContentLoaded", function() {
+      const sidebar = document.getElementById('smart-sidebar');
+      if (!sidebar) return;
+
+      let lastScrollY = window.scrollY;
+      let topPadding = 24; // отступ сверху
+      let bottomPadding = 24; // отступ снизу
+
+      window.addEventListener('scroll', () => {
+        // Логика работает только на экранах шире 992px (где панель сбоку)
+        if (window.innerWidth <= 992) {
+            sidebar.style.top = '0px';
+            return;
+        }
+
+        const scrollY = window.scrollY;
+        const dir = scrollY > lastScrollY ? 'down' : 'up';
+        const viewportHeight = window.innerHeight;
+        const sidebarHeight = sidebar.offsetHeight;
+
+        // Если панель меньше экрана, она просто всегда прилипает к верху
+        if (sidebarHeight + topPadding + bottomPadding < viewportHeight) {
+            sidebar.style.top = topPadding + 'px';
+            lastScrollY = scrollY;
+            return;
+        }
+
+        let currentTop = parseInt(window.getComputedStyle(sidebar).top, 10) || topPadding;
+
+        if (dir === 'down') {
+            // Крутим вниз: панель едет вверх вместе со страницей, пока не упрется нижним краем
+            let newTop = currentTop - (scrollY - lastScrollY);
+            let minTop = viewportHeight - sidebarHeight - bottomPadding;
+            sidebar.style.top = Math.max(minTop, newTop) + 'px';
+        } else {
+            // Крутим вверх: панель едет вниз вместе со страницей, пока не упрется верхним краем
+            let newTop = currentTop + (lastScrollY - scrollY);
+            sidebar.style.top = Math.min(topPadding, newTop) + 'px';
+        }
+
+        lastScrollY = scrollY;
+      });
+    });
+    
+
+  </script>
 </body>
 </html>
