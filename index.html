@@ -734,14 +734,15 @@
       const title = container.previousElementSibling.textContent.trim();
 
       const btnView = document.createElement('button');
+      btnView.className = 'btn btn-view';
+      btnView.innerHTML = `${iconEye} Посмотреть`;
+
       if (fileType === 'pptx') {
-        btnView.className = 'btn btn-view disabled-btn tooltip';
-        btnView.setAttribute('data-tooltip', 'Предпросмотр недоступен. Скачайте файл.');
-        btnView.innerHTML = `${iconEye} Посмотреть`;
-        btnView.onclick = (e) => e.preventDefault(); // Блокируем нажатие
+        // Подменяем расширение .pptx на .pdf только для функции просмотра!
+        // Скачиваться по кнопке "Скачать" всё равно будет .pptx
+        const pdfUrl = fileUrl.replace(/\.pptx$/i, '.pdf');
+        btnView.onclick = () => openSingleFile(pdfUrl, 'pdf', title);
       } else {
-        btnView.className = 'btn btn-view';
-        btnView.innerHTML = `${iconEye} Посмотреть`;
         btnView.onclick = () => openSingleFile(fileUrl, fileType, title);
       }
 
@@ -857,23 +858,6 @@
                 modalBody.innerHTML = '<div style="color:red; text-align:center; padding:20px;">Ошибка загрузки PDF: ' + err.message + '</div>';
             });
         }
-      } 
-      else if (type === 'pptx') {
-        modalBody.classList.add('is-docx'); // Белый фон
-        modalBody.innerHTML = `
-          <div style="text-align:center; padding: 40px; color: var(--text-main); width: 100%; margin: auto;">
-            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="margin-bottom:16px;">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-              <polyline points="14 2 14 8 20 8"></polyline>
-              <line x1="16" y1="13" x2="8" y2="13"></line>
-              <line x1="16" y1="17" x2="8" y2="17"></line>
-              <polyline points="10 9 9 9 8 9"></polyline>
-            </svg>
-            <h3 style="margin-top:0;">Презентация (PPTX)</h3>
-            <p style="color:var(--muted); margin-bottom: 24px; font-size: 0.95rem;">Формат презентаций не поддерживается для предпросмотра прямо в браузере. Пожалуйста, скачайте файл для просмотра на вашем устройстве.</p>
-            <a href="${url}" download class="btn btn-view" style="display:inline-flex; font-size:1rem; padding: 12px 24px;">Скачать презентацию</a>
-          </div>
-        `;
       }
       else if (type === 'docx') {
         modalBody.classList.add('is-docx');
